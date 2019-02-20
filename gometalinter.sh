@@ -1,26 +1,19 @@
-#!/bin/bash
+#!/bin/sh
 
-BINDIR="bin"
-GOMETALINTER_VERSION=${GOMETALINTER_VERSION:-"2.0.10"}
-GOMETALINTER="bin/gometalinter"
-GOMETALINTER_URL="https://github.com/alecthomas/gometalinter/releases/download/v${GOMETALINTER_VERSION}/gometalinter-${GOMETALINTER_VERSION}-linux-amd64.tar.gz"
+set -e
 
-function download_metalinter() {
-  curl -L "$GOMETALINTER_URL" | tar -xz --strip-components 1 --exclude COPYING --exclude README.md -C "${BINDIR}/"
+LINTER_DIR=${LINTER_DIR:-"./bin"}
+LINTER_BIN="$LINTER_DIR/gometalinter"
+LINTER_VERSION=${LINTER_VERSION:-"3.0.0"}
+
+download_linter() {
+  curl -sfL https://install.goreleaser.com/github.com/alecthomas/gometalinter.sh | sh -s -- -b "$LINTER_DIR" "v$LINTER_VERSION"
 }
 
-if [ ! -d "$BINDIR" ]; then
-  mkdir "$BINDIR"
+if [ ! -f "$LINTER_BIN" ]; then
+  download_linter
 fi
 
-if [ ! -f "$GOMETALINTER" ]; then
-  echo "Gometalinter is missing. Downloading..."
-  download_metalinter
+if ! "$LINTER_BIN" --version | grep -q "$LINTER_VERSION"; then
+  download_linter
 fi
-
-if "$GOMETALINTER" --version | grep -q "$GOMETALINTER_VERSION"; then
-  echo "Gometalinter is outdated. Downloading..."
-  download_metalinter
-fi
-
-
