@@ -7,7 +7,7 @@ LINTER_BIN="$LINTER_DIR/golangci-lint"
 LINTER_VERSION=${LINTER_VERSION:-"1.17.1"}
 
 download_linter() {
-  curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b "$LINTER_DIR" "v$LINTER_VERSION"
+  curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b "$LINTER_DIR" "v$LINTER_VERSION"
 }
 
 if [ ! -f "$LINTER_BIN" ]; then
