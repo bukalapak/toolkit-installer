@@ -11,8 +11,12 @@ platform_os() {
 }
 
 download() {
+  PLATFORM_OS=$(platform_os)
+
   mkdir -p "$BIN_DIR"
-  curl -sfL "https://github.com/bukalapak/vanadia/releases/download/v${VERSION}/vanadia-v${VERSION}.$(platform_os)-amd64.tar.gz" | tar -C "$BIN_DIR" -x vanadia
+  echo "bukalapak/vanadia info found version: ${VERSION} for v${VERSION}/${PLATFORM_OS}/amd64"
+  curl -sfL "https://github.com/bukalapak/vanadia/releases/download/v${VERSION}/vanadia-v${VERSION}.${PLATFORM_OS}-amd64.tar.gz" | tar -C "$BIN_DIR" -x vanadia
+  echo "bukalapak/vanadia info installed ${BIN_CMD}"
 }
 
 if [ ! -f "$BIN_CMD" ]; then
