@@ -15,7 +15,7 @@ download() {
 
   mkdir -p "$BIN_DIR"
   echo "bukalapak/vanadia info found version: ${VERSION} for v${VERSION}/${PLATFORM_OS}/amd64"
-  curl -sfL "https://github.com/bukalapak/vanadia/releases/download/v${VERSION}/vanadia-v${VERSION}.${PLATFORM_OS}-amd64.tar.gz" | tar -C "$BIN_DIR" -x vanadia
+  curl -sfL "https://github.com/bukalapak/vanadia/releases/download/v${VERSION}/vanadia-v${VERSION}.${PLATFORM_OS}-amd64.tar.gz" | tar -z -C "$BIN_DIR" -x vanadia
   echo "bukalapak/vanadia info installed ${BIN_CMD}"
 }
 
