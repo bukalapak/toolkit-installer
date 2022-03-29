@@ -8,7 +8,8 @@ INSTALL_VERSION=${INSTALL_VERSION:-0.24.0}
 
 download() {
   OS_NAME=$(uname -s)
-  DOWNLOAD_URL="https://github.com/bufbuild/buf/releases/download/v${INSTALL_VERSION}/buf-${OS_NAME}-x86_64.tar.gz"
+  HARDWARE_NAME=$(uname -m)
+  DOWNLOAD_URL="https://github.com/bufbuild/buf/releases/download/v${INSTALL_VERSION}/buf-${OS_NAME}-${HARDWARE_NAME}.tar.gz"
   curl -sSL "${DOWNLOAD_URL}" | tar -xvzf - -C "$INSTALL_DIR" --strip-components 2
 }
 
